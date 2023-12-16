@@ -1,7 +1,8 @@
+//This code is from passport
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({//constructor function that spits out an object. These end up in the database for users
   userName: { type: String, unique: true },
   email: { type: String, unique: true },
   password: String
@@ -13,7 +14,7 @@ const UserSchema = new mongoose.Schema({
  UserSchema.pre('save', function save(next) {
   const user = this
   if (!user.isModified('password')) { return next() }
-  bcrypt.genSalt(10, (err, salt) => {
+  bcrypt.genSalt(10, (err, salt) => {//bcrypt takes the password and turns into something else that isn't the password
     if (err) { return next(err) }
     bcrypt.hash(user.password, salt, (err, hash) => {
       if (err) { return next(err) }
@@ -33,4 +34,4 @@ UserSchema.methods.comparePassword = function comparePassword(candidatePassword,
 }
 
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)//
