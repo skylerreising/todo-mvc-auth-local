@@ -42,6 +42,17 @@ module.exports = {
             console.log(err)
         }
     },
+    editTodo: async (req, res)=>{
+        const { id } = req.params;
+        const { todo } = req.body;
+        try {
+          await Todo.findByIdAndUpdate(id, { todo });
+          res.redirect('/todos');
+        } catch (err) {
+          //you can set up custom error handling on the client side using this information
+          res.redirect(`/todos?error=true`);
+        }
+    },
     deleteTodo: async (req, res)=>{
         console.log(req.body.todoIdFromJSFile)
         try{

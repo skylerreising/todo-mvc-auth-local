@@ -13,10 +13,18 @@
     <% todos.forEach( el => { %>
             <li class='todoItem' data-id='<%=el._id%>'>
                 <span class='<%= el.completed === true ? 'completed' : 'not'%>'><%= el.todo %></span>
+                <span class="edit">Edit</span>
                 <span class='del'> Delete </span>
             </li>
     <% }) %>    
     </ul>
+
+    <!-- Update -->
+    <form id="updateForm" action="/todos/editTodo/" method="POST">
+        <input type="hidden" name="_id" id="updateId"> <!--Bundle ID with the form data-->
+        <input type="text" name="todo" id="updateTodo" placeholder="New item name" required>
+        <button type="submit">Update Item</button>
+    </form>
 
     <h2><%= user.userName %> has <%= left %> things left to do.</h2>
 

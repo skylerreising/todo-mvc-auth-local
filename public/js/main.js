@@ -70,33 +70,17 @@ async function markIncomplete(){
     }catch(err){
         console.log(err)
     }
+//just have todo and _id
 
-    async function editItem(){
-        const todoId = this.parentNode.dataset.id
-        try{
-            const response = await fetch('todos/deleteTodo', {
-                method: 'delete',
-                headers: {'Content-type': 'application/json'},
-                body: JSON.stringify({
-                    'todoIdFromJSFile': todoId
-                })
-            })
-            const data = await response.json()
-            console.log(data)
-            location.reload()
-        }catch(err){
-            console.log(err)
-        }
-    }
-    function editItem(id, name, description) {
+async function editTodo(id, todo) {
+        console.log("Its working")
         // Populate the hidden field with the id
         document.getElementById("updateId").value = id;
       
         // Populate the form fields with the existing item's data
-        document.getElementById("updateName").value = name;
-        document.getElementById("updateDescription").value = description;
+        document.getElementById("updateTodo").value = todo;
       
         // Update the form's action attribute
-        document.getElementById("updateForm").action = `/item/update/${id}`;
+        document.getElementById("updateForm").action = `/todos/editTodo/${id}`;
       }
 }
